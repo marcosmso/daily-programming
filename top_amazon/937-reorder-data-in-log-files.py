@@ -44,8 +44,7 @@ class Solution:
         digit_logs = []
         
         for log in logs:
-            identifier = log.split()[0]
-            content = log[len(identifier)+1:]
+            identifier, content = log.split(" ", 1)
             if content[0].isalpha():
                 letter_logs.append(LogToken(identifier, content))
             else:

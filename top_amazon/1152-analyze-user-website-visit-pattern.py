@@ -11,7 +11,12 @@ Similarly, if the pattern is ["leetcode", "love", "leetcode"], the score is the 
 Also, if the pattern is ["luffy", "luffy", "luffy"], the score is the number of users x such that x visited "luffy" three different times at different timestamps.
 Return the pattern with the largest score. If there is more than one pattern with the same largest score, return the lexicographically smallest such pattern.
 
- 
+  main -> login -> home
+  main -> contact -> login -> home -> logout
+
+  main, contact, login 
+  main, contact, home
+  main, contact, logout 
 
 Example 1:
 
@@ -44,12 +49,11 @@ It is guaranteed that there is at least one user who visited at least three webs
 All the tuples [username[i], timestamp[i], website[i]] are unique.
 """
 
-
 from collections import defaultdict 
 class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
             
-        webInfo = [(u,w,t) for u,w,t in zip(username, timestamp, website)]
+        webInfo = [(u,w,t) for u,w,t in zip(username, timestamp, website)] #O(n*log(n)) 
         webInfo.sort(key=lambda x:x[1])
         
         sites_by_user = defaultdict(list)
@@ -58,7 +62,6 @@ class Solution:
             
         counts = defaultdict(int)
         max_visited = float("-inf")
-        
         
         for visited_sites in sites_by_user.values():
             if len(visited_sites) < 3: continue

@@ -27,6 +27,12 @@ Constraints:
 1 <= k <= points.length <= 104
 -104 < xi, yi < 104
 """
+# Questions
+# Repeated points?
+# What to do when having 4 points with same distance but k=3
+# k > 0
+# Each point will be in the format [1,4]. Coordenates integers?
+
 import collections
 DistPoint = collections.namedtuple("DistPoint",("dist","point"))
 
@@ -36,8 +42,11 @@ class Solution:
         
         for point in points:
             if len(closestPoints) < k:
-                heapq.heappush(closestPoints, DistPoint(-point[0]**2 -point[1]**2, point))
+                collections.heapq.heappush(closestPoints, DistPoint(-point[0]**2 -point[1]**2, point))
             else:
-                heapq.heappushpop(closestPoints, DistPoint(-point[0]**2 -point[1]**2, point))
+                collections.heapq.heappushpop(closestPoints, DistPoint(-point[0]**2 -point[1]**2, point))
         
         return [distpoint.point for distpoint in closestPoints]
+
+# time: O(n*log(k))
+# space: O(k) 

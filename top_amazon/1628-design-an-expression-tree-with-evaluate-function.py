@@ -138,9 +138,10 @@ class OperatorNode(Node):
     def __init__(self):
         self.left = None
         self.right = None
-        
+    
+    @abstractmethod
     def evaluate(self):
-        raise NotImplementedError
+        pass
         
         
 class MultiplactionNode(OperatorNode):

@@ -150,13 +150,31 @@ class Solution:
 #time: O(m * n * log(n) + (n + p)) = O(m*n*log(n)) 
 #space: O(1)
 
-
-# 5
-
-# 1 - > O(1) 
-# 2 - > O(2)
-
-
-# n ->  O(n)
-#      ------
-# 	  n ^ 2 n, len()
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        
+        products.sort()
+        
+        m = len(searchWord)
+        left, right = 0, len(products) - 1
+        i = 0
+        
+        suggestions = [[] for _ in range(m)]
+        
+        while left <= right and i < m:
+            
+            if len(products[left]) <= i or products[left][i] != searchWord[i]:
+                left += 1
+                continue
+                
+            if len(products[left]) <= i or products[right][i] != searchWord[i]:
+                right -= 1
+                continue
+            
+            end = min(left + 3, right + 1)
+            for j in range(left, end):
+                suggestions[i].append(products[j])
+                
+            i += 1
+        
+        return suggestions

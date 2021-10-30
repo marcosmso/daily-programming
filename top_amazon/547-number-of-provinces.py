@@ -39,8 +39,7 @@ class Solution:
         
         for cur in range(n):
             if isConnected[cur][cur] == -1:
-                continue
-                
+                continue     
             dfs(cur)
             provinces += 1
         
