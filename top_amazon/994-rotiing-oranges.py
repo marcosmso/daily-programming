@@ -76,7 +76,6 @@ class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         good_oranges = 0 
         to_process = deque()
-        visited = set()
         
         for i in range(len(grid)):
             for j in range(len(grid[0])):
@@ -84,7 +83,6 @@ class Solution:
                     good_oranges += 1
                 elif grid[i][j] == 2:
                     to_process.append((i,j,0))
-                    visited.add((i,j))
         
         min_minutes = 0
         

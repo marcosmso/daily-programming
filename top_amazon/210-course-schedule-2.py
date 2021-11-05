@@ -70,29 +70,28 @@ All the pairs [ai, bi] are distinct."""
 #         stack.reverse()
 #         return stack if is_possible else []
 
+import collections
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        indegree, adjacencies = numCourses * [0], {}
+        indegree, adjacencies = numCourses * [0], collections.defaultdict(list)
         
-        for dst, src in prerequisites:
-            if src not in adjacencies:
-                adjacencies[src] = [dst]
-            else:
-                adjacencies[src].append(dst)
-            indegree[dst] +=1
+        for course, preCourse in prerequisites:
+            adjacencies[preCourse].append(course)
+            indegree[course] +=1
         
-        queue = deque([course for course in range(numCourses) if indegree[course] == 0])
+        # indegree: number of prerequisites
+        queue = collections.deque([course for course in range(numCourses) if indegree[course] == 0])
         topological_sort = []
         
         while len(queue) > 0:
-            srcCourse = queue.popleft()
-            topological_sort.append(srcCourse)
+            preCourse = queue.popleft()
+            topological_sort.append(preCourse)
             
-            if srcCourse in adjacencies:
-                for dst in adjacencies[srcCourse]:
-                    indegree[dst]-=1
-                    if indegree[dst] == 0:
-                        queue.append(dst)
+            if preCourse in adjacencies:
+                for nextCourse in adjacencies[preCourse]:
+                    indegree[nextCourse]-=1
+                    if indegree[nextCourse] == 0:
+                        queue.append(nextCourse)
                     
         return topological_sort if len(topological_sort) == numCourses else []        
      

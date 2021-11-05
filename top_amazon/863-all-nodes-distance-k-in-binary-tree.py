@@ -32,39 +32,42 @@ target is the value of one of the nodes in the tree.
 #         self.left = None
 #         self.right = None
 
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+import collections
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
-        my_parent = {}
+        parent = {}
         
-        def findTarget(node, parent, target):
-            if not node: return False
-            
-            my_parent[node] = parent
-            
-            if node == parent:
-                return True
-            return findTarget(node.left, node, target) or findTarget(node.right, node, target)
+        def dfsParent(node, par=None):
+            if node:
+                parent[node] = par
+                dfsParent(node.left, node)
+                dfsParent(node.right, node)
 
+        dfsParent(root)
         
         ans = []
-        seen = set()
+        seen = set([target]) 
+        queue = collections.deque([(target, 0)])
         
-        def dfs(node, k):
-            if not node or k < 0 or node in seen:
-                return
+        while len(queue) > 0:
+            curr, path = queue.popleft()
             
-            seen.add(node)
-            if k == 0:
-                ans.append(node.val)
-                return
+            if path == k: 
+                ans.append(curr.val)
+                continue
             
-            dfs(node.left, k-1)
-            dfs(node.right,k-1)
-            if node in my_parent:
-                dfs(my_parent[node], k-1)
+            for nextNode in [curr.left, curr.right, parent[curr]]:
+                if nextNode and nextNode not in seen: 
+                    queue.append((nextNode, path + 1))
+                    seen.add(nextNode)
              
-        findTarget(root, None, target)
-        dfs(target, k)
         return ans
             
             
