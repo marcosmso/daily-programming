@@ -56,4 +56,4 @@ class Solution:
         return 1
 
 # time O(n * m)
-# time O(n + m) -> max deep stack
+# space O(n + m) -> max deep stack

@@ -1,0 +1,49 @@
+Graphs Algorithms
+
+Topological Sort
+	> it is possible
+	> print possible order
+
+Detect circle in direct graph
+	> DFS: use visited, if a nextNode(not parent) in visited, there is a circle
+	> Union Find 
+	
+Detect circle in undirect graph
+	> DFS: Use visited and recStack to mark states;
+
+Minimum Spaninng Tree (MST)
+	Prim's algorithm
+		1) Create a set mstSet that keeps track of vertices already included in MST. 
+		2) Assign a key value to all vertices in the input graph. Initialize all key values as INFINITE. Assign key value as 0 for the first vertex so that it is picked first. 
+		3) While mstSet doesn’t include all vertices 
+		….a) Pick a vertex u which is not there in mstSet and has minimum key value. 
+		….b) Include u to mstSet. 
+		….c) Update key value of all adjacent vertices of u. To update the key values, iterate through all adjacent vertices. For every adjacent vertex v, if weight of edge u-v is less than the previous key value of v, update the key value as weight of u-v
+		The idea of using key values is to pick the minimum weight edge from cut. The key values are used only for vertices which are not yet included in MST, the key value for these vertices indicate the minimum weight edges connecting them to the set of vertices included in MST.
+
+	https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/?ref=lbp
+	Kruskal's algorithm
+		1. Sort all the edges in non-decreasing order of their weight. 
+		2. Pick the smallest edge. Check if it forms a cycle with the spanning tree formed so far. If cycle is not formed, include this edge. Else, discard it. (Use Union Find to detect circle)
+		3. Repeat step#2 until there are (V-1) edges in the spanning tree.
+
+Count Number of Connected Components in undirect graph
+	> Union Find 
+
+Graph is strongly Connected Components?
+	Following is Kosaraju’s DFS based simple algorithm that does two DFS traversals of graph: 
+	1) Initialize all vertices as not visited.
+	2) Do a DFS traversal of graph starting from any arbitrary vertex v. If DFS traversal doesn’t visit all vertices, then return false.
+	3) Reverse all arcs (or find transpose or reverse of graph) 
+	4) Mark all vertices as not-visited in reversed graph.
+	5) Do a DFS traversal of reversed graph starting from same vertex v (Same as step 2). If DFS traversal doesn’t visit all vertices, then return false. Otherwise return true.
+
+
+Find Bridges in Graph
+
+
+How to check if a directed graph is Eulerian? 
+	A directed graph has an eulerian cycle if following conditions are true:
+	1) All vertices with nonzero degree belong to a single strongly connected component. 
+	2) In degree is equal to the out degree for every vertex.
+

@@ -30,7 +30,7 @@ beginWord, endWord, and wordList[i] consist of lowercase English letters.
 beginWord != endWord
 All the words in wordList are unique.
 """
-from collections import defaultdict
+from collections import defaultdict, deque
 class Solution(object):
     def ladderLength(self, beginWord, endWord, wordList):
         if endWord not in wordList or not endWord or not beginWord or not wordList:
@@ -43,7 +43,7 @@ class Solution(object):
                 all_combo_dict[word[:i] + "*" + word[i+1:]].append(word)
 
         # Queue for BFS
-        queue = collections.deque([(beginWord, 1)])
+        queue = deque([(beginWord, 1)])
         visited = {beginWord: True}
         while queue:
             current_word, level = queue.popleft()
