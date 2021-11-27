@@ -38,7 +38,8 @@ There are no repeated edges.
 #1. Create an adjacency list such that adj[v] contains all the adjacent vertices of vertex v.
 #2. Initialize a hashmap or array, visited, to track the visited vertices.
 #3. Define a counter variable and initialize it to zero.
-#4. Iterate over each vertex in edges, and if the vertex is not already in visited, start a DFS from it. Add every vertex visited during the DFS to visited.
+#4. Iterate over each vertex in edges, and if the vertex is not already in visited, start a DFS from it. 
+#   Add every vertex visited during the DFS to visited.
 #5. Every time a new DFS starts, increment the counter variable by one.
 #6. At the end, the counter variable will contain the number of connected components in the undirected graph.
 
